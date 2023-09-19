@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_cartFragment_to_articleFragment"
             app:destination="@id/articleFragment" />
+        <action
+            android:id="@+id/action_cartFragment_to_billingFragment"
+            app:destination="@id/billingFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailProductFragment"
@@ -43,7 +46,22 @@
             android:name="product"
             app:argType="com.kuliah.medicalife.data.Product" />
     </fragment>
-    <activity
+    <fragment
+        android:id="@+id/billingFragment"
+        android:name="com.kuliah.medicalife.ui.shopping.BillingFragment"
+        android:label="BillingFragment"
+        tools:layout="@layout/fragment_billing">
+        <action
+            android:id="@+id/action_billingFragment_to_addressFragment"
+            app:destination="@id/addressFragment" />
+        <argument
+            android:name="totalPrice"
+            app:argType="integer" />
+        <argument
+            android:name="products"
+            app:argType="com.kuliah.medicalife.data.Cart[]" />
+    </fragment>
+    <fragment
         android:id="@+id/addressFragment"
         android:name="com.kuliah.medicalife.ui.address.AddressFragment"
         android:label="AddressFragment"

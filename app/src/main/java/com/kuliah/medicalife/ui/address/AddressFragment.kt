@@ -1,10 +1,12 @@
 package com.kuliah.medicalife.ui.address
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.kuliah.medicalife.data.Address
 import com.kuliah.medicalife.databinding.FragmentAddressBinding
@@ -14,27 +16,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
-class AddressFragment : AppCompatActivity() {
+class AddressFragment : Fragment() {
 
     private lateinit var binding: FragmentAddressBinding
     val viewModel by viewModels<AddressViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = FragmentAddressBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-
-        binding.apply {
-            buttonSave.setOnClickListener {
-                val fullName = edFullName.text.toString()
-                val asrama = edAsrama.text.toString()
-                val room = edRoom.text.toString()
-                val phone = edPhone.text.toString()
-                val address = Address(fullName, asrama, room, phone)
-
-                viewModel.addAddress(address)
-            }
-        }
 
         lifecycleScope.launchWhenStarted {
             viewModel.addNewAddress.collectLatest {
@@ -45,11 +33,11 @@ class AddressFragment : AppCompatActivity() {
 
                     is Resource.Success -> {
                         binding.progressbarAddress.visibility = View.INVISIBLE
-                        Toast.makeText(this@AddressFragment, "Berhasil menambahkan alamat", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Berhasil menambahkan alamat", Toast.LENGTH_SHORT).show()
                     }
 
                     is Resource.Error -> {
-                        Toast.makeText(this@AddressFragment, it.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                     }
 
                     else -> Unit
@@ -59,7 +47,32 @@ class AddressFragment : AppCompatActivity() {
 
         lifecycleScope.launchWhenStarted {
             viewModel.error.collectLatest {
-                Toast.makeText(this@AddressFragment, it, Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentAddressBinding.inflate(inflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.apply {
+            buttonSave.setOnClickListener {
+                val fullName = edFullName.text.toString()
+                val asrama = edAsrama.text.toString()
+                val room = edRoom.text.toString()
+                val phone = edPhone.text.toString()
+                val address = Address(fullName, asrama, room, phone)
+
+                viewModel.addAddress(address)
             }
         }
     }
