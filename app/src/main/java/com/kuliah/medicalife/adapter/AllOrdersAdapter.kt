@@ -76,6 +76,9 @@ class AllOrdersAdapter : RecyclerView.Adapter<AllOrdersAdapter.OrdersViewHolder>
         val order = differ.currentList[position]
         holder.bind(order)
 
+        holder.itemView.setOnClickListener {
+            onClick?.invoke(order)
+        }
     }
 
     override fun getItemCount(): Int {
