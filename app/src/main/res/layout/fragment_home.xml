@@ -13,7 +13,7 @@
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
         app:cardUseCompatPadding="true"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/ivProfile"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -28,7 +28,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ivProfile"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:padding="8dp"

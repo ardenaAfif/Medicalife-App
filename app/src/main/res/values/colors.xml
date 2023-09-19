@@ -7,4 +7,9 @@
     <color name="green800">#85A389</color>
     <color name="green500">#9DB5A1</color>
     <color name="green200">#ABD2B8</color>
+
+<!-- Order Status Color -->
+    <color name="ordered">#DFFF31</color>
+    <color name="canceled">#F32020</color>
+    <color name="delivered">#13E2C3</color>
 </resources>

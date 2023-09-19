@@ -42,6 +42,7 @@ class HomeFragment : Fragment() {
         productsAdapter = ProductAdapter()
 
         setupProductsRv()
+        actionProfile()
 
         lifecycleScope.launchWhenStarted {
             viewModel.mainProduct.collectLatest {
@@ -78,6 +79,12 @@ class HomeFragment : Fragment() {
             }
 
         })
+    }
+
+    private fun actionProfile() {
+        binding.ivProfile.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
+        }
     }
 
     private fun performSearch(query: String?) {

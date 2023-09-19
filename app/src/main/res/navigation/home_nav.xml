@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_homeFragment_to_articleFragment"
             app:destination="@id/articleFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -66,4 +69,18 @@
         android:name="com.kuliah.medicalife.ui.address.AddressFragment"
         android:label="AddressFragment"
         tools:layout="@layout/fragment_address"/>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.kuliah.medicalife.ui.profile.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_allOrdersFragment"
+            app:destination="@id/allOrdersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/allOrdersFragment"
+        android:name="com.kuliah.medicalife.ui.profile.AllOrdersFragment"
+        android:label="AllOrdersFragment"
+        tools:layout="@layout/fragment_orders"/>
 </navigation>
