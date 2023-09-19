@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Medicalife</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Masuk</string>
+    <string name="register">Daftar</string>
+    <string name="welcome_login">Selamat Datang di Medicalife, \nSilahkan masuk untuk melanjutkan</string>
+    <string name="welcome_daftar">Selamat Datang di Medicalife\nDaftarkan diri Anda dan nikmati semua fiturnya</string>
+    <string name="nama">Nama</string>
+    <string name="login_google">Masuk dengan Google</string>
+    <string name="chart">Chart</string>
+    <string name="rules">Aturan Pemakaian</string>
+    <string name="desc">Deskripsi</string>
+    <string name="no_results">Barang yang anda cari tidak ditemukan</string>
+</resources>
