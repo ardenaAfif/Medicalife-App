@@ -43,7 +43,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 val email = edtEmail.text.toString().trim()
                 val password = edtPassword.text.toString()
 
-                viewModel.login(email, password)
+                if (email.isNotEmpty() && password.isNotEmpty()) {
+                    viewModel.login(email, password)
+                } else {
+                    Toast.makeText(requireContext(), "Harap isi email dan paswword dahulu", Toast.LENGTH_SHORT).show()
+                }
             }
 
             btnGoogle.setOnClickListener {

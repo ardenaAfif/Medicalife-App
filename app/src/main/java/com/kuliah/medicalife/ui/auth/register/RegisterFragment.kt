@@ -46,11 +46,14 @@ class RegisterFragment : Fragment() {
                     edtEmail.text.toString().trim()
                 )
                 val password = edtPassword.text.toString()
-                viewModel.createAccountWithEmailAndPassword(user, password)
-
-                btnGoogle.setOnClickListener {
-                    Toast.makeText(requireContext(), "Fitur ini belum tersedia", Toast.LENGTH_SHORT).show()
+                if (user != null && password.isNotEmpty()) {
+                    viewModel.createAccountWithEmailAndPassword(user, password)
+                } else {
+                    Toast.makeText(requireContext(), "Silahkan isi terlebih dahulu", Toast.LENGTH_SHORT).show()
                 }
+            }
+            btnGoogle.setOnClickListener {
+                Toast.makeText(requireContext(), "Fitur ini belum tersedia", Toast.LENGTH_SHORT).show()
             }
 
             binding.haveAccount.setOnClickListener {
