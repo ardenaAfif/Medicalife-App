@@ -16,7 +16,7 @@ import com.kuliah.medicalife.R
 import com.kuliah.medicalife.adapter.ProductAdapter
 import com.kuliah.medicalife.databinding.FragmentHomeBinding
 import com.kuliah.medicalife.utils.Resource
-import com.kuliah.medicalife.utils.showBottomNavigationView
+import com.kuliah.medicalife.viewmodel.DetailsViewModel
 import com.kuliah.medicalife.viewmodel.MainProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -26,7 +26,8 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var productsAdapter: ProductAdapter
-    private val viewModel by viewModels<MainProductViewModel>()
+    private val mainProductViewModel by viewModels<MainProductViewModel>()
+    private val detailViewModel by viewModels<DetailsViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,13 +40,13 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        productsAdapter = ProductAdapter()
+        productsAdapter = ProductAdapter(detailViewModel)
 
         setupProductsRv()
         actionProfile()
 
         lifecycleScope.launchWhenStarted {
-            viewModel.mainProduct.collectLatest {
+            mainProductViewModel.mainProduct.collectLatest {
                 when(it) {
                     is Resource.Loading -> {
                         showLoading()
@@ -90,12 +91,12 @@ class HomeFragment : Fragment() {
     private fun performSearch(query: String?) {
         // Filter produk berdasarkan nama
         val filteredProducts = if (!query.isNullOrBlank()) {
-            viewModel.mainProduct.value.data?.filter { product ->
+            mainProductViewModel.mainProduct.value.data?.filter { product ->
                 product.name.contains(query, ignoreCase = true)
             } ?: emptyList()
         } else {
             // Jika query kosong, tampilkan semua produk
-            viewModel.mainProduct.value.data ?: emptyList()
+            mainProductViewModel.mainProduct.value.data ?: emptyList()
         }
 
         if (filteredProducts.isEmpty()) {
@@ -118,7 +119,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupProductsRv() {
-        productsAdapter = ProductAdapter()
+        productsAdapter = ProductAdapter(detailViewModel)
         binding.rvProducts.apply {
             layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL,  false)
             adapter = productsAdapter
@@ -129,9 +130,5 @@ class HomeFragment : Fragment() {
         const val TAG = "HomeFragment"
     }
 
-    override fun onResume() {
-        super.onResume()
-        showBottomNavigationView()
-    }
 
 }

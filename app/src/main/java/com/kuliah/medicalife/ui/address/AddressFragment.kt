@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.kuliah.medicalife.data.Address
 import com.kuliah.medicalife.databinding.FragmentAddressBinding
 import com.kuliah.medicalife.utils.Resource
@@ -74,6 +75,16 @@ class AddressFragment : Fragment() {
 
                 viewModel.addAddress(address)
             }
+        }
+        customToolbar()
+    }
+
+    private fun customToolbar() {
+        binding.apply {
+            toolbar.navBack.setOnClickListener {
+                findNavController().navigateUp()
+            }
+            toolbar.tvToolbarName.text = "Tambah Alamat"
         }
     }
 }

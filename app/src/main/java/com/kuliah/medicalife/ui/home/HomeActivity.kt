@@ -2,6 +2,7 @@ package com.kuliah.medicalife.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -41,6 +42,23 @@ class HomeActivity : AppCompatActivity() {
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavView)
         setupWithNavController(bottomNavigationView, navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when(destination.id) {
+                R.id.homeFragment -> {
+                    bottomNavigationView.visibility = View.VISIBLE
+                }
+                R.id.cartFragment -> {
+                    bottomNavigationView.visibility = View.VISIBLE
+                }
+                R.id.articleFragment -> {
+                    bottomNavigationView.visibility = View.VISIBLE
+                }
+                else -> {
+                    bottomNavigationView.visibility = View.GONE
+                }
+            }
+        }
 
         lifecycleScope.launchWhenStarted {
             viewModel.cartProducts.collectLatest {

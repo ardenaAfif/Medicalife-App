@@ -25,6 +25,7 @@ import com.kuliah.medicalife.databinding.FragmentBillingBinding
 import com.kuliah.medicalife.utils.HorizontalItemDecoration
 import com.kuliah.medicalife.utils.PriceFormatter
 import com.kuliah.medicalife.utils.Resource
+import com.kuliah.medicalife.utils.hideBottomNavigationView
 import com.kuliah.medicalife.viewmodel.BillingViewModel
 import com.kuliah.medicalife.viewmodel.OrderViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,6 +57,7 @@ class BillingFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+//        hideBottomNavigationView()
         binding = FragmentBillingBinding.inflate(inflater)
         return binding.root
     }
@@ -63,6 +65,7 @@ class BillingFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        customToolbar()
         setupAddressRv()
         setupBillingProductsRv()
 
@@ -161,6 +164,15 @@ class BillingFragment: Fragment() {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
             adapter = billingProductsAdapter
             addItemDecoration(HorizontalItemDecoration())
+        }
+    }
+
+    private fun customToolbar() {
+        binding.apply {
+            toolbar.navBack.setOnClickListener {
+                findNavController().navigateUp()
+            }
+            toolbar.tvToolbarName.text = "Pembayaran"
         }
     }
 }

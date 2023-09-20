@@ -7,7 +7,7 @@
     tools:context=".ui.profile.ProfileFragment">
 
     <include
-        android:id="@+id/profile"
+        android:id="@+id/toolbar"
         layout="@layout/custom_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         android:src="@drawable/empty_cart_illustration"/>
 
     <TextView
@@ -69,7 +69,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
-                android:id="@+id/editProfile"
+                android:id="@+id/addAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
@@ -81,7 +81,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Edit Profil" />
+                    android:text="Tambah Alamat" />
 
                 <ImageView
                     android:layout_width="18dp"
@@ -111,7 +111,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/keluar_profile"
+                android:id="@+id/logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
@@ -242,5 +242,14 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView2"
         android:textAlignment="center"/>
 
+    <ProgressBar
+        android:id="@+id/progressBarProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

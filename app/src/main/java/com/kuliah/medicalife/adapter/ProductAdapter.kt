@@ -3,6 +3,7 @@ package com.kuliah.medicalife.adapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kuliah.medicalife.R
+import com.kuliah.medicalife.data.Cart
 import com.kuliah.medicalife.data.Product
 import com.kuliah.medicalife.databinding.ProductRvItemBinding
 import com.kuliah.medicalife.ui.home.HomeFragment
@@ -18,7 +20,7 @@ import com.kuliah.medicalife.ui.home.HomeFragmentDirections
 import com.kuliah.medicalife.utils.PriceFormatter
 import com.kuliah.medicalife.viewmodel.DetailsViewModel
 
-class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+class ProductAdapter(private val viewModel: DetailsViewModel) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     inner class ProductViewHolder(private val binding: ProductRvItemBinding):
         RecyclerView.ViewHolder(binding.root) {
@@ -31,6 +33,13 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() 
                 }
                 tvName.text = product.name
                 tvPrice.text = PriceFormatter.formatPrice(product.price)
+
+                // Tambahkan onClickListener untuk tombol "Tambah ke Keranjang"
+                btnAddToCart.setOnClickListener {
+                    val cartProduct = Cart(product, 1)
+                    viewModel.addUpdateProductInCart(cartProduct)
+                    Toast.makeText(itemView.context, "Berhasil ditambahkan ke keranjang", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -71,5 +80,7 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() 
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
+
+    var onAddToCartClickListener: ((Product) -> Unit)? = null
 
 }

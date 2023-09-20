@@ -38,6 +38,7 @@ class AllOrdersFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupOrdersRv()
+        customToolbar()
 
         lifecycleScope.launchWhenStarted {
             viewModel.allOrders.collectLatest {
@@ -71,6 +72,15 @@ class AllOrdersFragment: Fragment() {
         binding.rvAllOrders.apply {
             adapter = ordersAdapter
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        }
+    }
+
+    private fun customToolbar() {
+        binding.apply {
+            toolbar.navBack.setOnClickListener {
+                findNavController().navigateUp()
+            }
+            toolbar.tvToolbarName.text = "Daftar Pesanan"
         }
     }
 }
