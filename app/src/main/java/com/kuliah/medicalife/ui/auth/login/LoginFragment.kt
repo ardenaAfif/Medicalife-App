@@ -1,5 +1,7 @@
 package com.kuliah.medicalife.ui.auth.login
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -28,7 +30,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentLoginBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -44,6 +46,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 viewModel.login(email, password)
             }
 
+            btnGoogle.setOnClickListener {
+                Toast.makeText(requireContext(), "Fitur ini belum tersedia", Toast.LENGTH_SHORT).show()
+            }
+
             tvForgotPassword.setOnClickListener {
                 setupBottomSheetDialog { email ->
                     viewModel.resetPassword(email)
@@ -57,27 +63,36 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         lifecycleScope.launchWhenStarted {
             viewModel.resetPassword.collect {
-                when(it) {
+                when (it) {
                     is Resource.Loading -> {
 
                     }
+
                     is Resource.Success -> {
-                        Snackbar.make(requireView(), "Link reset password telah dikirim ke email Anda", Snackbar.LENGTH_LONG).show()
+                        Snackbar.make(
+                            requireView(),
+                            "Link reset password telah dikirim ke email Anda",
+                            Snackbar.LENGTH_LONG
+                        ).show()
                     }
+
                     is Resource.Error -> {
-                        Snackbar.make(requireView(), "Error: ${it.message}", Snackbar.LENGTH_LONG).show()
+                        Snackbar.make(requireView(), "Error: ${it.message}", Snackbar.LENGTH_LONG)
+                            .show()
                     }
+
                     else -> Unit
                 }
             }
         }
 
         lifecycleScope.launchWhenStarted {
-            viewModel.login.collect{
-                when(it) {
+            viewModel.login.collect {
+                when (it) {
                     is Resource.Loading -> {
                         binding.btnLogin.startAnimation()
                     }
+
                     is Resource.Success -> {
                         binding.btnLogin.revertAnimation()
                         Intent(requireActivity(), HomeActivity::class.java).also {
@@ -85,13 +100,52 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                             startActivity(it)
                         }
                     }
+
                     is Resource.Error -> {
-                        Toast.makeText(requireContext(), "Email atau Password salah", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Email atau Password salah",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         binding.btnLogin.revertAnimation()
                     }
+
                     else -> Unit
                 }
             }
+        }
+
+        playAnimation()
+    }
+
+    private fun playAnimation() {
+        val judul = ObjectAnimator.ofFloat(binding.textView, View.ALPHA, 1f).setDuration(500)
+        val desc = ObjectAnimator.ofFloat(binding.loginDesc, View.ALPHA, 1f).setDuration(500)
+        val email =
+            ObjectAnimator.ofFloat(binding.textInputLayoutEmail, View.ALPHA, 1f).setDuration(500)
+        val password =
+            ObjectAnimator.ofFloat(binding.textInputLayoutPassword, View.ALPHA, 1f).setDuration(500)
+        val forgotPassword =
+            ObjectAnimator.ofFloat(binding.tvForgotPassword, View.ALPHA, 1f).setDuration(500)
+        val btnMulai = ObjectAnimator.ofFloat(binding.btnLogin, View.ALPHA, 1f).setDuration(500)
+        val masukDengan = ObjectAnimator.ofFloat(binding.textView2, View.ALPHA, 1f).setDuration(500)
+        val btnGoogle = ObjectAnimator.ofFloat(binding.btnGoogle, View.ALPHA, 1f).setDuration(500)
+        val dontHaveAccount =
+            ObjectAnimator.ofFloat(binding.linearBelumPunyaAkun, View.ALPHA, 1f).setDuration(500)
+
+        AnimatorSet().apply {
+            playSequentially(
+                judul,
+                desc,
+                email,
+                password,
+                forgotPassword,
+                btnMulai,
+                masukDengan,
+                btnGoogle,
+                dontHaveAccount
+            )
+            start()
         }
     }
 

@@ -11,6 +11,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:alpha="0"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/poppins_bold"
         android:text="@string/register"
@@ -24,6 +25,7 @@
         android:id="@+id/login_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:alpha="0"
         android:fontFamily="@font/poppins_regular"
         android:text="@string/welcome_daftar"
         android:textColor="@color/black"
@@ -41,6 +43,7 @@
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:alpha="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_desc">
 
@@ -58,6 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         app:endIconMode="clear_text"
+        android:alpha="0"
         app:layout_constraintEnd_toEndOf="parent"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,6 +81,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:endIconMode="password_toggle"
+        android:alpha="0"
         android:layout_marginTop="20dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintStart_toStartOf="parent"
@@ -93,10 +98,12 @@
     <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
         android:id="@+id/btn_signup"
         android:layout_width="match_parent"
+        android:alpha="0"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_bold"
         android:text="@string/register"
-        android:textSize="21sp"
+        android:textAllCaps="false"
+        app:spinning_bar_color="@color/white"
         android:background="@drawable/custom_button"
         android:textColor="@color/white"
         android:layout_marginTop="18dp"
@@ -109,6 +116,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="21dp"
+        android:alpha="0"
         android:fontFamily="@font/poppins_regular"
         android:text="Atau daftar dengan"
         android:textColor="@color/black"
@@ -122,6 +130,7 @@
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
+        android:alpha="0"
         android:drawableLeft="@drawable/ic_google"
         android:text="@string/login_google"
         android:layout_marginTop="18dp"
@@ -130,11 +139,13 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <LinearLayout
+        android:id="@+id/linearHaveAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btn_google"
+        android:alpha="0"
         android:gravity="center"
         app:layout_constraintStart_toStartOf="@+id/btn_google">
 

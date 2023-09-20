@@ -1,15 +1,14 @@
 package com.kuliah.medicalife.ui.profile
 
+import android.content.pm.PackageManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kuliah.medicalife.R
 import com.kuliah.medicalife.databinding.FragmentProfileBinding
-import com.kuliah.medicalife.databinding.OrderItemBinding
-import com.kuliah.medicalife.utils.showBottomNavigationView
 
 class ProfileFragment : Fragment() {
 
@@ -28,7 +27,9 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         actionOrder()
+        getVersion()
     }
+
 
     private fun actionOrder() {
         binding.apply {
@@ -38,9 +39,13 @@ class ProfileFragment : Fragment() {
         }
     }
 
-//    override fun onResume() {
+    //    override fun onResume() {
 //        super.onResume()
 //        showBottomNavigationView()
 //    }
-
+    private fun getVersion() {
+        val manager = requireActivity().packageManager
+        val info = manager.getPackageInfo(requireActivity().packageName, PackageManager.GET_ACTIVITIES)
+        binding.appVersion.text = "Versi ${info.versionName.toString()}"
+    }
 }
